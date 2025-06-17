@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>frak - gallery</title>
+<style>
+    body {
+      cursor: url('frak-cursor.png'), auto;
+      margin: 0;
+      padding: 0;
+      background: url('background.png') center center / cover no-repeat fixed;
+      color: #e2d8c3;
+      font-family: 'Courier New', monospace;
+      overflow-x: hidden;
+    }
+
+    .audio-control {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      z-index: 1000;
+      filter: drop-shadow(0 0 4px #4a3820);
+      transition: opacity 0.3s ease;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      padding: 100px 40px 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .card {
+      backdrop-filter: blur(12px);
+      background: rgba(90, 75, 50, 0.1);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 236, 210, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .card img {
+      width: 100%;
+      display: block;
+      cursor: pointer;
+    }
+
+    .token-info {
+      max-width: 1000px;
+      background-image: url('file-000000006c2061f79144ae2468ff325a');
+      background-size: cover;
+      background-position: center;
+      color: #f4ead3;
+      padding: 30px;
+      border-radius: 16px;
+      max-width: 800px;
+      margin: 60px auto;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+      font-family: 'Courier New', monospace;
+    }
+
+    .token-info h2 {
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+
+    .copy-btn {
+      background: rgba(255, 230, 180, 0.1);
+      border: 1px solid #e2d8c3;
+      color: #e2d8c3;
+      padding: 6px 10px;
+      margin-left: 10px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+
+    .copy-btn:hover {
+      background: rgba(255, 230, 180, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      .gallery {
+        padding: 80px 20px;
+      }
+
+      .token-info {
+      max-width: 1000px;
+        padding: 20px;
+      }
+    }
+  
+@media (max-width: 768px) {
+  .token-info {
+      max-width: 1000px;
+    position: relative !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 40px auto;
+  }
+  .token-info img {
+      max-width: none;
+      width: 100%;
+      height: auto;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .token-text {
+    position: absolute !important;
+    top: 20%;
+    left: 8%;
+    transform: translateY(-50%);
+    width: 80%;
+    font-size: 1rem;
+    text-align: left;
+    z-index: 2;
+  }
+}
+
+    .card {
+      position: relative;
+    }
+    .download-btn {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      text-decoration: none;
+      border-radius: 4px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .card:hover .download-btn {
+      opacity: 1;
+    }
+
+@media (max-width: 768px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 20px 40px;
+  }
+}
+</style>
+</head>
+<body><img alt="Frak Logo" src="frak-logo.png" style="display:block; margin:30px auto 10px; width: 180px;"/><img alt="Frak Portrait" class="header-image reveal" src="file-9QEUnJmsxxo4gT39mrgCDf" style="display: block; margin: 60px auto; max-width: 700px; border: 6px solid #8a6c3e; border-radius: 20px; box-shadow: 0 6px 20px rgba(0,0,0,0.4);"/>
+<div class="token-info"><img alt="Token Info Card" src="token-info-card.png"/>
+<h2>Token Info</h2>
+<p><strong>Name:</strong> Frak</p>
+<p><strong>Ticker:</strong> FRAK</p>
+<p><strong>Chain:</strong> Solana</p>
+<p><strong>Supply:</strong> 1,000,000,000</p>
+<p>
+<strong>CA:</strong>
+<span id="ca-text">So1anaFakeAddress123456789</span>
+<button class="copy-btn" onclick="copyCA()">Copy</button>
+</p>
+</div><div class="token-buttons" style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;"><a href="https://x.com/frakwtf" target="_blank"><img alt="X Button" src="btn-x.png" style="width: 120px;"/></a><a href="https://pump.fun" target="_blank"><img alt="Buy Button" src="btn-buy.png" style="width: 120px;"/></a></div><img alt="Pause" class="audio-control" id="audioToggle" src="file-BTpivFNs4irN5HNt3Ht3y3"/>
+<audio autoplay="" id="frak-audio" loop="" src="Frak.mp3"></audio>
+<div class="gallery-title reveal" style="text-align: center; font-size: 1.6rem; font-weight: bold; margin: 60px auto 20px;">Frak Gallery</div><div class="gallery">
+<div class="card"><img download="" src="gallery1.png"/><a class="download-btn" download="True" href="gallery1.png">Download</a></div>
+<div class="card"><img download="" src="gallery2.png"/><a class="download-btn" download="True" href="gallery2.png">Download</a></div>
+<div class="card"><img download="" src="gallery3.png"/><a class="download-btn" download="True" href="gallery3.png">Download</a></div>
+<div class="card"><img download="" src="gallery4.png"/><a class="download-btn" download="True" href="gallery4.png">Download</a></div>
+<div class="card"><img download="" src="gallery5.png"/><a class="download-btn" download="True" href="gallery5.png">Download</a></div>
+<div class="card"><img download="" src="gallery6.png"/><a class="download-btn" download="True" href="gallery6.png">Download</a></div>
+<div class="card"><img download="" src="gallery7.png"/><a class="download-btn" download="True" href="gallery7.png">Download</a></div>
+<div class="card"><img download="" src="gallery8.png"/><a class="download-btn" download="True" href="gallery8.png">Download</a></div>
+<div class="card"><img download="" src="gallery9.png"/><a class="download-btn" download="True" href="gallery9.png">Download</a></div>
+<div class="card"><img download="" src="gallery10.png"/><a class="download-btn" download="True" href="gallery10.png">Download</a></div>
+<div class="card"><img download="" src="gallery11.png"/><a class="download-btn" download="True" href="gallery11.png">Download</a></div>
+<div class="card"><img download="" src="gallery12.png"/><a class="download-btn" download="True" href="gallery12.png">Download</a></div>
+<div class="card"><img download="" src="gallery13.png"/><a class="download-btn" download="True" href="gallery13.png">Download</a></div>
+<div class="card"><img download="" src="gallery14.png"/><a class="download-btn" download="True" href="gallery14.png">Download</a></div>
+<div class="card"><img download="" src="gallery15.png"/><a class="download-btn" download="True" href="gallery15.png">Download</a></div>
+<div class="card"><img download="" src="gallery16.png"/><a class="download-btn" download="True" href="gallery16.png">Download</a></div>
+<div class="card"><img download="" src="gallery17.png"/><a class="download-btn" download="True" href="gallery17.png">Download</a></div>
+<div class="card"><img download="" src="gallery18.png"/><a class="download-btn" download="True" href="gallery18.png">Download</a></div>
+<div class="card"><img download="" src="gallery19.png"/><a class="download-btn" download="True" href="gallery19.png">Download</a></div>
+<div class="card"><img download="" src="gallery20.png"/><a class="download-btn" download="True" href="gallery20.png">Download</a></div>
+</div>
+<script>
+    const audio = document.getElementById('frak-audio');
+    const toggle = document.getElementById('audioToggle');
+
+    toggle.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        toggle.src = 'file-BTpivFNs4irN5HNt3Ht3y3'; // Pause icon
+      } else {
+        audio.pause();
+        toggle.src = 'file-XPHXPmLuJtDHTi8fooYYyB'; // Play icon
+      }
+    });
+
+    function copyCA() {
+      const text = document.getElementById("ca-text").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Contract address copied!");
+      });
+    }
+  
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.card').forEach((card, i) => {
+  card.classList.add('reveal');
+  card.style.transitionDelay = `${i * 80}ms`;
+  observer.observe(card);
+});
+</script>
+</body>
+</html>
